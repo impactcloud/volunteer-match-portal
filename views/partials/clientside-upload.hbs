@@ -1,0 +1,65 @@
+<!-- Facilitates file upload using Box's client-side javascript SDK -->
+
+<form method="post" action="files/upload" enctype="multipart/form-data" id="file-form">
+    <span class="fileUpload box-link">
+    <input type="file" role="button" class="upload" name="file" id="file-select" />
+    Upload
+  </span>
+</form>
+
+
+<script>
+  var accessToken = '{{accessToken}}';
+  var box = new BoxSdk();
+  var boxClient = new box.BasicBoxClient({
+    accessToken: accessToken
+  });
+  var form = document.getElementById('file-form');
+  var fileSelect = document.getElementById('file-select');
+  var uploadButton = document.getElementsByClassName('box-link')[0];
+
+  // client-side file upload
+  form.onchange = function(event) {
+
+    ga('send', 'event', 'Files', 'Click', 'Upload File');
+    event.preventDefault();
+
+    uploadButton.innerHTML = 'Uploading...';
+    var files = fileSelect.files;
+    var formData = new FormData();
+
+    formData.append('parent_id', '0');
+    formData.append(files[0].name, files[0]);
+
+    boxClient.files.upload({
+        body: formData
+      })
+      .then(function(resp) {
+        var newFile = JSON.stringify(resp.data,null,3);
+
+        // refresh api request/response
+        $.ajax({
+          type: 'GET',
+          contentType: "application/json",
+          dataType: 'json',
+          url: '/files/upload',
+          data: {
+            json: newFile,
+            name: files[0].name
+          },
+          success: function(data) {
+            uploadButton.innerHTML = "Upload";
+            window.location.reload();
+            refresh_box_api();
+          },
+          error: function(error) {
+            console.log("Upload error occurred");
+          }
+        });
+      })
+      .catch(function(err) {
+        console.log(err);
+        window.location = window.location.pathname + window.location.hash + '?error=upload';
+      });
+  }
+</script>

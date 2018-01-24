@@ -1,0 +1,104 @@
+{{#> layouts/base}}
+
+  {{#*inline "content-block"}}
+
+  <div class="container-fluid">
+    {{#if error}}
+    <div class="row">
+      <div class="alert alert-danger alert-dismissable" role="alert">{{error}}
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+      </div>
+    </div>
+    {{/if}}
+
+    {{> resize}}
+
+    {{> header
+              title="Content Uploader"
+              href="https://developer.box.com/v2.0/docs/box-content-uploader"
+              description="The Box Content Uploader UI Element allows developers to embed
+                            an upload widget in their desktop or mobile web application." }}
+
+      <div class="row">
+        <div class="col " id="flash-selected">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-7">
+              <div class="upload-container" style="height: 520px"></div>
+        </div>
+        <div class="col-sm-5">
+          <form method="post" action="/content-explorer">
+            <p class="lead text-center">Content Uploader Parameters</h4>
+
+            <div class="preview-params-div">
+              <div class="input-group">
+                <span class="input-group-addon">token</span>
+                <input type="text" class="form-control" value="{{accessToken}}" aria-describedby="token" disabled=true>
+              </div>
+
+              <div class="input-group">
+                <span class="input-group-addon">folderId</span>
+                <input type="text" class="form-control" value="0" aria-describedby="folderId" disabled=true>
+              </div>
+
+              <div class="input-group">
+                <span class="input-group-addon">container</span>
+                <input type="text" class="form-control" value="'.upload-container'" aria-describedby="container" disabled=true>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+  {{/inline}}
+
+
+  {{#*inline "scripts-block"}}
+  {{> includes/scripts}}
+  <script>
+      var folderId = '0';
+      var accessToken = '{{accessToken}}';
+      var uploader = new Box.ContentUploader();
+
+      // Attach event listener for when the choose button is pressed
+      uploader.addListener('complete', function(items) {
+          flashNotification(items);
+      });
+
+      uploader.show(folderId, accessToken, {
+          container: '.upload-container'
+      });
+
+      function flashNotification(items) {
+        var flashHtml = "";
+
+        // If no files were selected then just return
+        if (items.length === 0) {
+            return;
+        }
+
+        flashHtml += "<div class='alert alert-info alert-dismissable' role='alert'>"
+        flashHtml += "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a>"
+        flashHtml += "<strong>'complete' event triggered: </strong>"
+
+        // get selected item info
+        for (var i = 0; i < items.length; i++) {
+            flashHtml += "<span class='text-danger'>{type: \"" + items[i].type + "\", id: \"" +
+             items[i].id + "\", name: \"" + items[i].name + "\"}</span>";
+        }
+
+        flashHtml += "</div>"
+
+        $('#flash-selected').html(flashHtml);
+
+        return;
+    }
+  </script>
+
+  {{/inline}}
+
+{{/layouts/base}}

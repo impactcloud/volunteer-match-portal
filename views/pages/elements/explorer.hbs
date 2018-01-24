@@ -1,0 +1,171 @@
+{{#> layouts/base}}
+
+  {{#*inline "content-block"}}
+  <div class="container-fluid">
+    {{#if error}}
+    <div class="row">
+      <div class="alert alert-danger alert-dismissable" role="alert">{{error}}
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+      </div>
+    </div>
+    {{/if}}
+
+    {{> resize}}
+
+    {{> header
+              title="Content Explorer"
+              href="https://developer.box.com/v2.0/docs/box-content-explorer"
+              description="The Box Content Explorer UI Element allows developers to embed a folder view of content
+                           stored on Box in their desktop or mobile web application. " }}
+
+        <div class="row">
+          <div class="col " id="flash-selected">
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-7">
+              <div class="explorer-container h-100"></div>
+            </div>
+            <div class="col-sm-5">
+              <form method="post" action="/content-explorer">
+                <p class="lead text-center">Content Explorer Parameters</p>
+                  <div class="input-group">
+                    <span class="input-group-addon">token</span>
+                    <input type="text" class="form-control" value="{{params.token}}" aria-describedby="token" disabled=true>
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-addon">folderId</span>
+                    <input type="text" class="form-control" value="0" aria-describedby="token" disabled=true>
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-addon">container</span>
+                    <input type="text" class="form-control" value="'.explorer-container'" aria-describedby="token" disabled=true>
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-addon">canUpload</span>
+                    <input type="text" class="form-control" value="false" aria-describedby="token" disabled=true>
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-addon">canDelete</span>
+                    <input type="text" class="form-control" value="false" aria-describedby="token" disabled=true>
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-addon">canRename</span>
+                    <input type="text" class="form-control" value="false" aria-describedby="token" disabled=true>
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-addon">canDownload</span>
+                    <select class="form-control" id="showDownload" name="hideDownload">
+                      <option value=false>true</option>
+                      <option {{#if params.hideDownload}}selected="selected"{{/if}} value=true>false</option>
+                    </select>
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-addon">canShare</span>
+                    <select class="form-control" id="showShare" name="hideShare">
+                      <option value=false>true</option>
+                      <option {{#if params.hideShare}}selected="selected"{{/if}} value=true>false</option>
+                    </select>
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-addon">canSetShareAccess</span>
+                    <select class="form-control" id="showShareAccess" name="hideShareAccess">
+                      <option value=false>true</option>
+                      <option {{#if params.hideShareAccess}}selected="selected"{{/if}} value=true>false</option>
+                    </select>
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-addon">canPreview</span>
+                    <select class="form-control" id="showPreview" name="hidePreview">
+                      <option value=false>true</option>
+                      <option {{#if params.hidePreview}}selected="selected"{{/if}} value=true>false</option>
+                    </select>
+                  </div>
+
+                  <div class="input-group">
+                    <span class="input-group-addon">logoUrl</span>
+                    <input type="text" class="form-control" value="{{params.logoUrl}}" placeholder="{{params.logoUrl}}" aria-describedby="logoUrl" name="logoUrl">
+                  </div>
+
+                  <button type="submit" class="btn btn-box pull-right" id="preview-changes-btn" onclick="ga('send', 'event', 'Box Content Explorer', 'Click', 'Update Explorer');">Save Changes</button>
+
+                </div>
+              </form>
+        </div>
+        </div>
+    </div>
+
+  {{/inline}}
+
+
+  {{#*inline "scripts-block"}}
+  {{> includes/scripts}}
+  <script>
+      var folderId = "0", showDownload, showShare, showDelete, showShareAccess, showPreview, showRename;
+      var accessToken = "{{params.token}}"
+      var contentExplorer = new Box.ContentExplorer();
+      showDownload = ({{params.hideDownload}}) ? false : true;
+      showDelete = ({{params.hideDelete}}) ? false : true;
+      showShare = ({{params.hideShare}}) ? false : true;
+      showShareAccess = ({{params.hideShareAccess}}) ? false : true;
+      showPreview = ({{params.hidePreview}}) ? false : true;
+      // Attach event listener for when the choose button is pressed
+      contentExplorer.addListener('select', function(items) {
+        flashNotification(items, 'select');
+      });
+      contentExplorer.addListener('preview', function(items) {
+        flashNotification(items, 'preview');
+      });
+      contentExplorer.addListener('download', function(items) {
+        flashNotification(items, 'download');
+      });
+      contentExplorer.show(folderId, accessToken, {
+        container: '.explorer-container',
+        logoUrl: '{{params.logoUrl}}',
+        canUpload: false,
+        canDelete: false,
+        canDownload: showDownload,
+        canShare: showShare,
+        canSetShareAccess: showShareAccess,
+        canPreview: showPreview,
+        canRename: false,
+        explorerTab: true
+      });
+      function flashNotification(items, userEvent) {
+        var flashHtml = "";
+        // If no files were selected then just return
+        if (items.length === 0) {
+            return;
+        }
+        flashHtml += "<div class='alert alert-info alert-dismissable' role='alert'>"
+        flashHtml += "<a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a>"
+        flashHtml += "<strong>" + "'" + userEvent + "'" + ' event triggered: ' + "</strong>"
+        //preview only returns one file so we can't use for loop here as catch-all
+        if(items.type == 'file'){
+          flashHtml += "<span class='text-danger'>{type: \"" + items.type + "\", id: \"" +
+           items.id + "\", name: \"" + items.name + "\", can_preview: \"" + items.permissions.can_preview + "\"}</span>";
+        }else{
+          // get selected item info
+          for (var i = 0; i < items.length; i++) {
+              flashHtml += "<span class='text-danger'>{type: \"" + items[i].type + "\", id: \"" +
+               items[i].id + "\", name: \"" + items[i].name + "\"}</span>";
+          }
+        }
+        flashHtml += "</div>"
+        $('#flash-selected').html(flashHtml);
+        return;
+      }
+    </script>
+
+  {{/inline}}
+
+{{/layouts/base}}

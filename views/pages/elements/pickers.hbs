@@ -1,0 +1,150 @@
+{{#> layouts/base}}
+
+  {{#*inline "content-block"}}
+  <div class="container-fluid">
+    {{#if error}}
+    <div class="row">
+      <div class="alert alert-danger alert-dismissable" role="alert">{{error}}
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+      </div>
+    </div>
+    {{/if}}
+
+    {{> resize}}
+
+    {{> header
+              title="Content Picker"
+              href="https://developer.box.com/v2.0/docs/box-content-picker"
+              description="The Box Content Picker UI Element allows developers to add support for selecting files
+              and folders from Box in their desktop or mobile web application." }}
+
+    <div class="row">
+      <div class="col">
+        {{!--Choose Event Alert--}}
+        <div class="alert alert-info alert-dismissible fade show" style="display:none;" id="actionAlert" role="alert">
+          <strong>'choose' Event Triggered</strong>
+          <span id="argument"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-7">
+        <nav class="nav nav-pills nav-fill" id="searchTabs" role="tablist">
+          <a class="nav-item nav-link box-tab active" id="filePickerTab" data-toggle="pill" href="#filePicker" role="tab">File Picker</a>
+          <a class="nav-item nav-link box-tab" id="folderPickerTab" data-toggle="pill" href="#folderPicker" role="tab">Folder Picker</a>
+        </nav>
+        <div class="tab-content">
+          <div class="tab-pane fade show active file-picker-container" style="height: 520px;" id="filePicker" role="tabpanel"></div>
+          <div class="tab-pane fade folder-picker-container" style="height: 520px;" id="folderPicker" role="tabpanel"></div>
+        </div>
+    </div>
+    <div class="col-sm-5">
+        <p class="lead text-center">Content Pickers Parameters</h4>
+        <form method="post">
+          <div class="input-group">
+            <span class="input-group-addon">token</span>
+            <input type="text" class="form-control" value="{{options.token}}" aria-describedby="token" disabled=true>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">folderId</span>
+            <input type="text" class="form-control" value="0" aria-describedby="token" disabled=true>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">container</span>
+            <input type="text" class="form-control" value="'.picker-container'" aria-describedby="token" disabled=true>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">canUpload</span>
+            <input type="text" class="form-control" value="false" aria-describedby="token" disabled=true>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">canSetShareAccess</span>
+            <select class="form-control" id="canSetShareAccess" name="hideShareAccess">
+              <option value=false>true</option>
+              <option {{#if options.hideShareAccess}}selected="selected"{{/if}} value=true>false</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <span class="input-group-addon">logoUrl</span>
+            <input type="text" class="form-control" value="{{options.logoUrl}}" placeholder="{{options.logoUrl}}" aria-describedby="logoUrl" name="logoUrl">
+          </div>
+            <button type="submit" class="btn btn-box mt-3 pull-right" onclick="ga('send', 'event', 'Box Content Pickers', 'Click', 'Update Params');">Save Changes</button>
+          </form>
+      </div>
+    </div>
+
+
+
+  </div>
+  {{/inline}}
+
+
+  {{#*inline "scripts-block"}}
+  {{> includes/scripts}}
+  <script>
+
+  	var sortBy, sortDirection;
+
+  	// configure picker options
+  	sortDirection = {{options.sortDirection}} ? 'desc' : 'asc';
+  	var canSetShareAccess = ({{options.hideShareAccess}}) ? false : true;
+  	var filePicker = new Box.FilePicker();
+  	var folderPicker = new Box.FolderPicker();
+
+    filePicker.show('0', '{{options.token}}', {
+      container: '.file-picker-container',
+      logoUrl: '{{options.logoUrl}}',
+      canSetShareAccess: canSetShareAccess,
+      canUpload: false
+    });
+
+    folderPicker.show('0', '{{options.token}}', {
+      container: '.folder-picker-container',
+      logoUrl: '{{options.logoUrl}}',
+      canSetShareAccess: canSetShareAccess,
+      canUpload: false
+    });
+
+
+  	function showAlert(items) {
+      var argumentHtml = "";
+      if (items.length === 0) {
+        argumentHtml += "<span class='text-danger'>[]</span>";
+        $('#argument').html(argumentHtml);
+        $('#actionAlert').show();
+      } else {
+        argumentHtml +="<span class='text-danger'>[";
+        for (var i = 0; i < items.length; i++) {
+          argumentHtml += "{type: " + items[i].type +", id: " + items[i].id + ", name: " + items[i].name;
+          if (items[i].shared_link) {
+            argumentHtml += ", shared_link: " + items[i].shared_link.url + '}';
+          } else {
+            argumentHtml += '}';
+          }
+        };
+        argumentHtml +="]</span>";
+        $('#argument').html(argumentHtml);
+        $('#actionAlert').show();
+      }
+    };
+
+
+  	// Attach event listener for when the choose button is pressed
+  	filePicker.addListener('choose', function(items) {
+  		showAlert(items);
+  	});
+
+  	// Attach event listener for when the choose button is pressed
+  	folderPicker.addListener('choose', function(items) {
+  		showAlert(items);
+  	});
+
+
+
+  </script>
+
+
+  {{/inline}}
+
+{{/layouts/base}}

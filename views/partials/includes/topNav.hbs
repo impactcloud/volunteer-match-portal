@@ -1,0 +1,82 @@
+<nav class="navbar navbar-expand-lg navbar-dark px-4" style="background-color: #151F27;">
+  <a class="navbar-brand" href="https://developer.box.com/">
+    <img alt="" src="/img/developerLogo.png" width=205 height=40 class="d-inline-block align-top">
+  </a>
+
+  <button class="navbar-toggler" type="button"><i class="fa fa-bars" data-toggle="collapse" data-target="#navLinks" style="color: #fff;"></i></button>
+
+  <div class="collapse navbar-collapse" id="navLinks">
+    <ul class="navbar-nav">
+
+          <li class="nav-item">
+              <a class="nav-link topnav-link" href="https://developer.box.com/page/features">Features</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link topnav-link dropdown-toggle" id="useCaseDrop" data-toggle="dropdown">Use Cases</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="https://developer.box.com/page/use-cases">Build an App</a>
+                <br />
+                <a class="dropdown-item" href="https://developer.box.com/page/integrations">Build an Integration</a>
+              </div>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link topnav-link dropdown-toggle" id="docsDrop" data-toggle="dropdown">Docs</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="https://developer.box.com/docs">Guides</a>
+                <br />
+                <a class="dropdown-item" href="https://developer.box.com/v2.0/reference">Reference</a>
+                <br  />
+                <a class="dropdown-item" href="https://developer.box.com/docs/box-api-recipes">API Recipes</a>
+              </div>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link topnav-link dropdown-toggle" id="docsDrop" data-toggle="dropdown">Tools</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="https://developer.box.com/docs/box-cli">Box CLI</a>
+                <br />
+                <a class="dropdown-item" href="https://developer.box.com/docs/box-sdks">SDKs</a>
+                <br  />
+                <a class="dropdown-item" href="https://developer.box.com/page/box-ui-elements">UI Elements</a>
+                <br  />
+                <a class="dropdown-item" href="https://developer.box.com/docs/api-changelog">API Changelog</a>
+                <br  />
+                <a class="dropdown-item" href="https://box-api-navigator.com/">API Navigator</a>
+                <br  />
+                <a class="dropdown-item" href="https://developer.box.com/docs/open-source-projects">Open Source Projects</a>
+              </div>
+          </li>
+
+          <li class="nav-item">
+              <a class="nav-link topnav-link" href="https://boxsolutionsgallery.com/">Showcase</a>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link topnav-link dropdown-toggle" id="docsDrop" data-toggle="dropdown">Community</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" target="_blank" href="https://community.box.com/t5/Box-Developer-Forum/bd-p/DeveloperForum">Forum</a>
+                <br />
+                <a class="dropdown-item" href="https://developer.box.com/docs/developer-events">API Office Hours</a>
+                <br />
+                <a class="dropdown-item" href="https://developer.box.com/docs/developer-events">Events</a>
+                <br />
+                <a class="dropdown-item" target="_blank" href="https://medium.com/box-developer-blog">Blog</a>
+                <br />
+                <a class="dropdown-item" href="https://developer.box.com/docs#section-developer-support">Support</a>
+              </div>
+          </li>
+      </ul>
+
+      {{#if email}}
+      <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link topnav-link" href="/user/logout" onclick="ga('send', 'event', 'Home', 'Click', 'Logout');">Log Out</a>
+          </li>
+      </ul>
+      {{/if}}
+
+    </div>
+  </div>
+</nav>

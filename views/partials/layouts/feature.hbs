@@ -1,0 +1,51 @@
+{{!-- layouts/feature.hbs --}}
+
+<!doctype html>
+<html>
+  <head>
+    <title>
+      API Navigator
+    </title>
+
+    {{#> head-block}}
+      {{!-- Custom <head> goes here --}}
+      {{> includes/head }}
+    {{/head-block}}
+  </head>
+
+  <body>
+    {{> includes/topNav }}
+    <div class="container-fluid">
+      {{!--Grey Subheader--}}
+      <div class="row">
+          <div class="col" style="background-color:#f6f7f8; height: 38px;">
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-2 d-none d-md-block">
+            {{> includes/sidebar }}
+        </div>
+
+
+        {{!-- Content --}}
+        <div class="col-sm-6 pt-2">
+              {{#> content-block}}
+              {{/content-block}}
+        </div>
+
+        {{!-- API Request and Response --}}
+        <div class="col-sm-4 d-none d-md-block api" id="tour3">
+          {{> code}}
+        </div>
+
+      </div>
+    </div>
+
+    {{#> scripts-block}}
+      {{> includes/scripts}}
+      {{!-- Custom scripts go here --}}
+    {{/scripts-block}}
+
+  </body>
+</html>

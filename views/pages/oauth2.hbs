@@ -1,0 +1,61 @@
+{{#> layouts/feature}}
+
+  {{#*inline "content-block"}}
+  <div class="container-fluid">
+
+
+    {{> resize}}
+
+    {{> header
+              title="Authentication"
+              href="https://developer.box.com/v2.0/reference#oauth-2-overview"
+              description="Box uses OAuth 2.0 to authenticate connections that use the Box APIs. OAuth 2 is an open
+              protocol for authentication used with web, mobile, and desktop applications. Every use of Box APIs requires
+              authentication so that Box can ensure that only authorized users can interact with Box content. OAuth 2 is the protocol
+              that Box uses for such authentication." }}
+
+      <div class="row pb-2">
+        <div class="col">
+          <h5>Box authorize URL </h5>
+          <code style="word-wrap: break-word;">{{oauthUrl}}</code>
+        </div>
+      </div>
+      <div class="row pt-2">
+        <div class="col">
+          <p>1. Navigate to an OAuth URL and enter Box account credentials</p>
+          <p>2. An authorization code is returned</p>
+          <p>3. This code is exchanged for an access token that can be used to make api calls</p>
+        </div>
+      </div>
+      <div class="row pt-3 text-center">
+        <div class="col">
+          <a class="btn btn-box" href= {{oauthUrl}} onclick="ga('send', 'event', 'Authentication', 'Click', 'Initiate 3-Legged Oauth');">Authentication via 3-legged OAuth 2.0</a>
+        </div>
+      </div>
+      {{#if items}}
+      <div class="row pt-5">
+        <div class="col">
+          <table class="table">
+            <h5 class="text-center">Authenticated user's root folder items</h5>
+            <thead>
+              <tr>
+                <th>Item Type</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each items as |item|}}
+                <tr>
+                  <td scope="row">{{item.type}}</td>
+                  <td>{{item.name}}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {{/if}}
+    </div>
+  {{/inline}}
+
+{{/layouts/feature}}

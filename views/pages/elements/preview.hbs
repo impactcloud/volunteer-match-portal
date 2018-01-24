@@ -1,0 +1,125 @@
+{{#> layouts/base}}
+
+  {{#*inline "content-block"}}
+  <div class="container-fluid">
+    {{#if error}}
+    <div class="row">
+      <div class="alert alert-danger alert-dismissable" role="alert">{{error}}
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+      </div>
+    </div>
+    {{/if}}
+
+    {{> resize}}
+
+    {{> header
+              title="Content Preview"
+              href="https://developer.box.com/v2.0/docs/box-content-preview"
+              description="  The Box Content Preview UI Element allows developers to easily embed high quality
+              and interactive previews of Box files in their desktop or mobile web application." }}
+
+    {{#unless params.files}}
+    <div class="row">
+      <div class="col-sm-12">
+          <img src="/img/empty-folder.png" alt="" width="200px" class="empty-folder" />
+          <p class="text-glow" id="empty-p">
+            There are no files in this folder. Upload a file in the <a href="/files">Files</a> tab.
+          </p>
+      </div>
+    </div>
+    {{/unless}}
+
+    <div class="row">
+      <div class="col-sm-7">
+        <div class="preview-container mb-5" style="height:520px;"></div>
+      </div>
+      <div class="col-sm-5">
+        <form method="post" action="/content-preview">
+          <p class="lead text-center">Content Preview Parameters</h4>
+            <div class="input-group">
+              <span class="input-group-addon">token</span>
+              <input type="text" class="form-control" value="{{params.token}}" aria-describedby="token" disabled=true>
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon">collection (file ID's)</span>
+              <input type="text" class="form-control" value={{#if params.files}}"{{#each params.files as |file|}}'{{file.id}}', {{/each}}"{{/if}} aria-describedby="token" disabled=true>
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon">container</span>
+              <input type="text" class="form-control" value="'.preview-container'" aria-describedby="token" disabled=true>
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon">header</span>
+              <select class="form-control" id="headerDark" name="headerDark">
+                <option value=false>light</option>
+                <option {{#if params.headerDark}}selected="selected"{{/if}} value=true>dark</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon">logoUrl</span>
+              <input type="text" class="form-control" value="{{params.logoUrl}}" placeholder="{{params.logoUrl}}" aria-describedby="logoUrl" name="logoUrl">
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon">showAnnotations</span>
+              <select class="form-control" id="hideAnnotations" name="hideAnnotations">
+                <option value=false>true</option>
+                <option {{#if params.hideAnnotations}}selected="selected"{{/if}} value=true>false</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon">showDownload</span>
+              <select class="form-control" id="showDownload" name="hideDownload">
+                <option value=false>true</option>
+                <option {{#if params.hideDownload}}selected="selected"{{/if}} value=true>false</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-box mt-3 pull-right" onclick="ga('send', 'event', 'Box Content Viewer', 'Click', 'Update Viewer');">Save Changes</button>
+        </form>
+      </div>
+    </div>
+
+
+
+  </div>
+  {{/inline}}
+
+
+  {{#*inline "scripts-block"}}
+  {{> includes/scripts}}
+  <script>
+
+  	var fileIds = [], header, showDownload, showAnnotations;
+  	var preview = new Box.Preview();
+
+  	// build file collection object
+  	{{#each params.files}}
+  		fileIds.push('{{this.id}}');
+  	{{/each}}
+
+  	// configure sdk params
+  	header = {{params.headerDark}} ? "dark" : "light";
+  	showDownload = ({{params.hideDownload}}) ? false : true;
+  	showAnnotations = ({{params.hideAnnotations}}) ? false : true;
+
+  	// Javascript for Box Preview SDK
+  	preview.show(fileIds[0], '{{params.token}}', {
+  			container: '.preview-container',
+  			header: header,
+  			logoUrl: '{{params.logoUrl}}',
+  			showAnnotations: showAnnotations,
+  			showDownload: showDownload,
+  			collection: fileIds
+  	});
+
+  </script>
+
+  {{/inline}}
+
+{{/layouts/base}}

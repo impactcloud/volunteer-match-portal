@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <title>
+      API Navigator
+    </title>
+    {{> includes/head }}
+  </head>
+
+  <body style="background-color: #151F27">
+      {{> includes/topNav }}
+      <div class="container-fluid">
+        {{!--Subheader--}}
+        <div class="row">
+            <div class="col" style="background-color:#f6f7f8; height: 38px;"></div>
+        </div>
+        <div class="row">
+          <div class="col p-5 ml-5 mt-5 fade-in">
+            <h1 class="home-h1 pt-3 pl-2 mb-3">Box API Navigator</h1>
+            <p class="home-p-header pl-2 mb-3">A visual tool for learning about Box API endpoints.</p>
+            <a class="btn btn-homepage m-2" href="{{boxAuthUrl}}" role="button">Sign in with Box</a>
+            <a class="btn btn-homepage-inverse m-2" href="{{googleAuthUrl}}" role="button">Sign in with Google</a>
+          </div>
+          <div class="col p-3 mr-5 mt-5 fade-in">
+            <img src="/img/mockup.svg" class="img-fluid" alt="">
+          </div>
+        </div>
+      </div>
+    {{> includes/scripts}}
+  </body>
+</html>

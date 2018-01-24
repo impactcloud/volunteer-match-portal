@@ -1,0 +1,44 @@
+
+
+  {{!--Request--}}
+  {{#if request}}
+   {{#if request.api_call}}
+    <h4 class="py-2 ml-3 font-weight-bold">{{request.api_call}}</h4>
+   {{/if}}
+    <table class="table table-sm borderless">
+      <tbody>
+        {{#if request.method}}
+          <tr>
+            <th scope="row">Method</th>
+            <td class="token constant">{{request.method}}</td>
+          </tr>
+        {{/if}}
+        {{#if request.request_url}}
+          <tr>
+            <th scope="row">URL</th>
+            <td class="token function">{{request.request_url}}</td>
+          </tr>
+        {{/if}}
+        {{#if request.header}}
+          <tr>
+            <th scope="row">Header</th>
+            <td class="token keyword">{{request.header}}</td>
+          </tr>
+        {{/if}}
+        {{#if request.body}}
+           <tr>
+            <th scope="row">Body</th>
+            <td><pre class="language-json"><code class="language-json">{{{request.body}}}</code></pre></td>
+          </tr>
+        {{/if}}
+      </tbody>
+    </table>
+  {{/if}}
+  <br />
+ {{!--Response--}}
+ {{#if response}}
+ <div>
+   <h4 class="ml-3 font-weight-bold">Response</h4>
+   <pre><code class="language-json">{{response}}</code></pre>
+ </div>
+ {{/if}}

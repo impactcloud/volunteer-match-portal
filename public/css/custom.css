@@ -1,0 +1,405 @@
+
+/* Base css ----------------------------------------------------------------- */
+
+
+body {
+  font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  letter-spacing: .01em;
+  line-height: 20px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+a {
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+a.active {
+  color: #0061d5 !important;
+}
+
+.header-title {
+  color: #002947 !important;
+}
+
+.header-title:hover {
+  color: #0061d5 !important;
+  transition: color 0.3s linear;
+ -webkit-transition: color 0.3s linear;
+ -moz-transition: color 0.3s linear;
+}
+ 
+.btn {
+  cursor: pointer !important;
+}
+
+.dropdownStyle {
+  width: 108px;
+}
+
+
+.box-link {
+  color: #59cfcf !important;
+  cursor: pointer;
+  font-size: 19px;
+}
+
+.box-link:hover {
+  color: #0061d5 !important;
+  cursor: pointer;
+  transition: color 0.3s linear;
+ -webkit-transition: color 0.3s linear;
+ -moz-transition: color 0.3s linear
+}
+
+.fileUpload input.upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90px;
+  min-height: 100%;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+
+.inputfile {
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+  z-index: -1;
+  cursor: pointer !important;
+}
+
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
+  font-weight: 400;
+  margin-bottom: 0px;
+}
+
+.pre-scrollable {
+  max-height: 800px;
+  overflow-y: scroll;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+.comment-avatar {
+  color: rgb(242,44,68);
+}
+
+/*fix small bug where pull-right changes font size*/
+.pull-right {
+  font-size: 100% !important;
+}
+
+.borderless td, .borderless th {
+  border: none;
+}
+
+
+/* Home Page ---------------------------------------------------------------- */
+
+.fade-in {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
+}
+
+.slide-in {
+  animation-name: slideInLeft;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.home-h1 {
+  font-weight: 300;
+  color: #FFFFFF;
+  font-style: normal;
+  font-size: 36px;
+  letter-spacing: 0.01438rem;
+  -webkit-font-smoothing: antialiased !important;
+  text-rendering: optimizeLegibility !important;
+}
+
+.home-p-header {
+  font-weight: 400;
+  font-size: 24px;
+  color: #8EA6B2;
+  letter-spacing: 0.15px;
+  line-height: 34px;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+.btn-homepage {
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  padding: 16px 40px;
+  border: 1px solid #59cfcf;
+  border-radius: 2px;
+  background-color: #59cfcf;
+  box-shadow: 0 30px 40px 0 rgba(0, 0, 0, .1);
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+  color: #fff;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+.btn-homepage-inverse {
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  padding: 16px 40px;
+  margin-left: 3rem;
+  border: 1px solid #59cfcf;
+  border-radius: 2px;
+  background-color: transparent;
+  -webkit-transition: all 500ms ease;
+  transition: all 500ms ease;
+  color: #59cfcf;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+}
+
+.btn-box-sm {
+  display: inline;
+  color: #fff !important;
+  border: 1px solid #59cfcf;
+  border-radius: 3px;
+  background-color: #59cfcf;
+  font-size: 12px;
+  line-height: 10px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+.btn-box {
+  display: inline;
+  color: #fff !important;
+  padding: 15px 23px;
+  border: 1px solid #59cfcf;
+  border-radius: 3px;
+  background-color: #59cfcf;
+  font-size: 14px;
+  line-height: 12px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+
+.btn-box:hover, .btn-box-sm:hover, .btn-homepage:hover {
+  background-color: transparent;
+  box-shadow: none;
+  color: #59cfcf !important;
+}
+
+.btn-homepage-inverse:hover {
+  background-color: #59cfcf;
+  color: #fff;
+  box-shadow: 0 30px 40px 0 rgba(0, 0, 0, .1);
+}
+
+
+
+/* Top navbar --------------------------------------------------------------- */
+
+.topnav-link {
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'Lato', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  transition: color 0.3s linear;
+ -webkit-transition: color 0.3s linear;
+ -moz-transition: color 0.3s linear;
+
+}
+
+.topnav-link:hover {
+  color: #5FC9CF !important;
+}
+
+.topnav-link.active {
+  color: #5FC9CF !important;
+}
+
+.dropdown-item {
+    color: #151f26 !important;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.dropdown-item:hover {
+  color: #0061d5 !important;
+  background-color: #fff;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+
+
+/* Help icon for launching the welcome tutorial ----------------------------- */
+.help-icon-container {
+  position: fixed;
+  bottom: 10px;
+  left: 20px;
+}
+
+
+
+.help-icon-container .help-icon {
+  height: 32px;
+  width: 32px;
+  transition: all 200ms;      /*Animation to close the button (circle)*/
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+  cursor:pointer;
+}
+
+
+.help-icon-container .help-icon span {
+  position: absolute;
+  left: 8px;
+  top: 3px;
+  line-height: 28px;
+}
+
+.help-icon-container .help-icon:hover {
+    transition: all 200ms cubic-bezier(.62,.1,.5,1);
+    width:75px;
+}
+
+.help-icon-container .help-icon .long-text {
+    opacity:0;
+    white-space: nowrap;
+    font-size: 0;
+    width: 0;
+    margin:0;
+}
+
+.help-icon-container .help-icon .long-text.show-long-text{
+  transition: opacity 500ms,
+              width 1ms linear 130ms,
+              font-size 1ms linear 130ms;
+  opacity:1;
+  margin-left: 26px;
+  font-size: 11px;
+  width: auto;
+}
+/* -------------------------------------------------------------------------- */
+
+
+
+/* Left sidenav ------------------------------------------------------------- */
+
+.sidebar {
+    height:100vh;
+}
+
+.sidebar-title {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .5px;
+  color: rgb(234, 108, 124) !important;
+  text-transform: uppercase;
+}
+
+.sidebar-link {
+  color: #666 !important;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 6px 9px 6px 30px;
+}
+
+.sidebar-link:hover {
+  color: #0061d5 !important;
+  transition: color 0.3s linear;
+ -webkit-transition: color 0.3s linear;
+ -moz-transition: color 0.3s linear
+}
+
+a.not-active {
+   pointer-events: none;
+   cursor: default;
+   color: #BFBFBF !important;
+}
+
+h3.not-active {
+   color: #BFBFBF !important;
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+.api {
+    background-color: #151F27;
+    color: #f8f8f2;
+    font-family: 'Source Code Pro', Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    overflow: auto;
+    min-height: 100vh;
+    max-height: 100vh;
+}
+
+
+.box-tab {
+  color: #5FC9CF !important;
+}
+
+.box-tab.active {
+  color: #fff !important;
+  background-color: #5FC9CF !important;
+}
+
+
+/* empty folder graphic */
+.empty-folder {
+  display: block;
+  margin: auto;
+  margin-top: 100px;
+}
+
+
+/* --UI Elements-------------------------------------------------------------- */
+
+
+.input-group-addon {
+  background-color: #151F27;;
+  color: #fff;
+}
+
+.input-group {
+  margin: 8px 0px;
+}
+
+.input-group:first-child {
+  margin-top: 20px;
+}
+
+
+#file-form {
+  font-size: 19px;
+}
+
+

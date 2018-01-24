@@ -1,0 +1,88 @@
+{{#> layouts/feature }}
+    {{#*inline "content-block"}}
+      <div class="container-fluid">
+
+        {{#if error}}
+        <div class="row">
+          <div class="alert alert-danger alert-dismissable" role="alert">{{error}}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+          </div>
+        </div>
+        {{/if}}
+
+        {{> resize}}
+        
+        {{>header
+              title="Files"
+              href="https://developer.box.com/v2.0/reference#file-object"
+              description="Interact with Box files in custom applications and
+              perform actions like <i>preview</i>, <i>upload</i>, <i>delete</i>, and <i>download</i>." }}
+
+          <div class="row py-3">
+            <div class="col-6">
+              <a class="btn btn-box-sm"
+                  id="tour2"
+                  role="button"
+                  onclick="root_folder_items(); ga('send', 'event', 'Files', 'Click', 'Get Folder Items');">
+                  Get Folder Items
+              </a>
+            </div>
+            <div class="col-6 text-right">
+                {{> clientside-upload }}
+            </div>
+          </div>
+
+          {{#unless files.length}}
+            <div class="row">
+              <div class="col text-center">
+                <img src="/img/empty-folder.png" alt="" width="200px" class="empty-folder" />
+                  <p class="text-glow" id="empty-p">
+                    There are no files in this folder. Upload a file with the button above.
+                  </p>
+              </div>
+            </div>
+          {{/unless}}
+
+          {{#if files}}
+          <div class="row pt-3">
+            <div class="col">
+              <table class="table table-hover table-responsive">
+           	    <thead>
+           			    <tr>
+           						<th><i class="fa fa-picture-o" style="color: grey;"></i></th>
+           						<th>Name</th>
+           						<th class="text-center">Actions</th>
+           					</tr>
+           				</thead>
+           				<tbody>
+           					{{#each files as |file|}}
+           						<tr>
+           							<td><img src="files/thumbnail/{{file.id}}" alt="" /></td>
+           							<td class="fileNameEllipses">{{file.name}}</td>
+           							<td class="text-center">
+           								<div class="dropdown show">
+           										<a href="#" data-toggle="dropdown"><i class="fa fa-ellipsis-h" style="color: grey;"></i></a>
+             									<div class="dropdown-menu">
+             										<a class="dropdown-item" href="#" onclick="get_file_info({{file.id}}); ga('send', 'event', 'Files', 'Click', 'Get File Info');">Get File Info</a>
+             										<a class="dropdown-item" href="#" onclick="download_file({{file.id}}); ga('send', 'event', 'Files', 'Click', 'Download File');">Download</a>
+             										<a class="dropdown-item" href="files/preview/{{file.id}}" onclick="setTimeout(refresh_box_api, 1500); ga('send', 'event', 'Files', 'Click', 'Preview File');" data-lity>Preview</a>
+             										<a class="dropdown-item" href="files/delete/{{file.id}}/{{file.etag}}" onclick="ga('send', 'event', 'Files', 'Click', 'Upload File');">Delete</a>
+             								</div>
+                          </div>
+           							</td>
+           						</tr>
+           					{{/each}}
+           				</tbody>
+           			</table>
+            </div>
+          </div>
+        {{/if}}
+      </div>
+    {{/inline}}
+
+    {{#*inline "scripts-block"}}
+      {{> includes/scripts }}
+      <script src="/javascript/tour.js"></script>
+    {{/inline}}
+
+{{/layouts/feature}}
