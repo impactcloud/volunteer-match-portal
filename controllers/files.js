@@ -27,12 +27,13 @@ router.get('/', function(req, res) {
       if (req.query.error == 'upload')
         err = "Duplicate file, could not upload";
     }
+    console.log('Access Token: ' + JSON.stringify(req.sdk._session.getAccessToken()));
 
   	res.render('pages/files', {
 			error: err,
       files: data ? data.entries.filter(isFile): [],
 			filesTab: true,
-      accessToken: req.sdk._session.tokenInfo.accessToken,
+      accessToken: req.sdk._session.getAccessToken(),
       request: req.session.requestObj,
       response: req.session.responseObj ? JSON.stringify(req.session.responseObj, null, '  ') : false
 		});
