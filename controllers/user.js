@@ -2,29 +2,31 @@
  * Controller to handle user login/logouts
  * using the Users API endpoint
  */
-var express = require('express'),
-    router = express.Router(),
-    util = require('util'),
-    fs = require('fs'),
-    path = require('path'),
-    auth = require('../middleware/auth'),
-    boxSDK = require('../helpers/box-sdk').boxSDK,
-    errorReporting = require('../helpers/error-reporting'),
-    mongoose = require('mongoose'),
-    User = mongoose.model('User'),
-    boxOauthSDK = require('box-node-sdk'),
-    oauthSDK = new boxOauthSDK({
-      clientID: process.env.BOX_AUTH_CLIENT_ID,
-      clientSecret: process.env.BOX_AUTH_CLIENT_SECRET
-    }),
-    google = require('googleapis'),
-    OAuth2 = google.auth.OAuth2,
-    plus = google.plus('v1'),
-    oauth2Client = new OAuth2(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET,
-      process.env.GOOGLE_REDIRECT_URI
-    );
+const express = require('express');
+const router = express.Router();
+const util = require('util');
+const fs = require('fs');
+const path = require('path');
+const auth = require('../middleware/auth');
+const boxSDK = require('../helpers/box-sdk').boxSDK;
+const errorReporting = require('../helpers/error-reporting');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const boxOauthSDK = require('box-node-sdk');
+const google = require('googleapis');
+const OAuth2 = google.auth.OAuth2;
+const plus = google.plus('v1');
+
+const oauthSDK = new boxOauthSDK({
+  clientID: process.env.BOX_AUTH_CLIENT_ID,
+  clientSecret: process.env.BOX_AUTH_CLIENT_SECRET
+});
+
+const oauth2Client = new OAuth2(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  process.env.GOOGLE_REDIRECT_URI
+);
 
 /**
  * Logout user by refreshing destroying their session
