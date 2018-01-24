@@ -1,15 +1,16 @@
 /**
  * Oauth2 Auth Controller
  */
-var express = require('express'),
-    router = express.Router(),
-    errorReporting = require('../helpers/error-reporting'),
-    REDIRECT_URI = process.env.BASE_URL + process.env.REDIRECT_URI,
-    BoxSDK = require('box-node-sdk'),
-    oauthSDK = new BoxSDK({
-        clientID: process.env.OAUTH2_CLIENT_ID,
-        clientSecret: process.env.OAUTH2_CLIENT_SECRET
-    });
+const express = require('express');
+const router = express.Router();
+const errorReporting = require('../helpers/error-reporting');
+const REDIRECT_URI = process.env.BASE_URL + process.env.REDIRECT_URI;
+const BoxSDK = require('box-node-sdk');
+    
+const oauthSDK = new BoxSDK({
+  clientID: process.env.OAUTH2_CLIENT_ID,
+  clientSecret: process.env.OAUTH2_CLIENT_SECRET
+});
 
 /**
  * Fetch oauth2 auth stuff

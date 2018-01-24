@@ -1,12 +1,12 @@
 /**
  * Files API Controller
  */
-var express = require('express'),
-    router = express.Router(),
-    fs = require('fs'),
-    errorReporting = require('../helpers/error-reporting'),
-  	multipart = require('express-formidable').parse,
-    cache = require('memory-cache');
+const express = require('express');
+const router = express.Router();
+const fs = require('fs');
+const errorReporting = require('../helpers/error-reporting');
+const multipart = require('express-formidable').parse;
+const cache = require('memory-cache');
 
 /**
  * Fetch all root files for app user

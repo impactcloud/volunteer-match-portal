@@ -1,16 +1,17 @@
 /**
  * Load all controllers
  */
-var express = require('express'),
-    router = express.Router(),
-    auth = require('../middleware/auth'),
-    google = require('googleapis'),
-    OAuth2 = google.auth.OAuth2,
-    oauth2Client = new OAuth2(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET,
-      process.env.GOOGLE_REDIRECT_URI
-    );
+const express = require('express');
+const router = express.Router();
+const auth = require('../middleware/auth');
+const google = require('googleapis');
+const OAuth2 = google.auth.OAuth2;
+
+const oauth2Client = new OAuth2(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  process.env.GOOGLE_REDIRECT_URI
+);
 
 // load routes
 router.use('/files', auth, require('./files'));
