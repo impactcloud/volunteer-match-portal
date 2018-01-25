@@ -17,6 +17,7 @@ const oauth2Client = new OAuth2(
 router.use('/files', auth, require('./files'));
 router.use('/user', require('./user'));
 router.use('/oauth2', auth, require('./oauth2'));
+router.use('/volunteer_signup', auth, require('./volunteer_signup'));
 
 /**
  * Home page route

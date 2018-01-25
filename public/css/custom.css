@@ -4,7 +4,7 @@
 
 body {
   font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 15px;
+  font-size: 13px;
   letter-spacing: .01em;
   line-height: 20px;
   font-weight: 400;
@@ -433,7 +433,7 @@ h3.not-active {
   -webkit-font-smoothing: antialiased;
   padding: 7px;
   transition: border-color linear .15s, box-shadow linear .1s;
-  width: 262px;
+  width: 380px;
 }
 
 .label {
