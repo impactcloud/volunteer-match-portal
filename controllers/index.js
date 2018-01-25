@@ -72,4 +72,8 @@ router.get('/refresh_box_api', function(req, res) {
   res.send(api_info);
 });
 
+router.get('/volunteer_signup', function(req, res) {
+  res.render('pages/volunteer-form');
+})
+
 module.exports = router;
