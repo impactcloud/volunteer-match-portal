@@ -107,7 +107,7 @@ router.get('/authentication', function(req, res) {
             req.session.email = result.authedUser.email;
             req.session.userID = result.dbUser.box_id;
 
-            res.redirect('/files?init=true');
+            res.redirect('/volunteer_dashboard');
             resolve();
           }));
         } else {

@@ -14,10 +14,11 @@ const oauth2Client = new OAuth2(
 );
 
 // load routes
-router.use('/files', auth, require('./files'));
+router.use('/volunteer_list', auth, require('./volunteer_list'));
 router.use('/user', require('./user'));
 router.use('/oauth2', auth, require('./oauth2'));
 router.use('/volunteer_signup', auth, require('./volunteer_signup'));
+router.use('/volunteer_dashboard', auth, require('./volunteer_dashboard'));
 
 /**
  * Home page route
@@ -45,7 +46,7 @@ router.get('/', function(req, res) {
 
   // If the user is logged in, send them to their files page
 	if (req.session && req.session.email) {
-		res.redirect('/files');
+		res.redirect('/volunteer-list');
   // else user is logged out, render the home page
   } else {
     res.render('pages/home', {
