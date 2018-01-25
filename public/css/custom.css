@@ -224,7 +224,7 @@ a.active {
 
 
 /* Top navbar --------------------------------------------------------------- */
-
+/* 
 .topnav-link {
   color: #ffffff !important;
   font-weight: 700;
@@ -254,7 +254,7 @@ a.active {
 .dropdown-item:hover {
   color: #0061d5 !important;
   background-color: #fff;
-}
+} */
 
 
 /* -------------------------------------------------------------------------- */
@@ -651,4 +651,98 @@ button svg {
 }
 .btn-primary.is-loading .btn-content {
   background-color: #bdc3c7;
+}
+
+
+/* --Volunteer List-------------------------------------------------------------- */
+
+
+.tbl-list.file-list {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  margin: 0;
+  min-height: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.tbl-list {
+  display: table;
+  width: 100%;
+}
+
+.file-list-body .file-list-items {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  padding: 0 5px;
+  margin: 20px 0 0 0;
+}
+
+.tbl-list-item {
+  border-bottom: 0;
+  border-top: 0;
+  border-radius: 2px;
+  display: block;
+  height: auto;
+  line-height: inherit;
+  margin-bottom: 15px;
+  min-height: 85px;
+  min-width: 80px;
+  padding-right: 10px;
+  position: relative;
+  -webkit-transition: -webkit-flex-basis .25s linear,max-width .25s linear;
+  transition: flex-basis .25s linear,max-width .25s linear;
+}
+
+.file-list-body .tbl-list-item {
+  -webkit-flex-basis: 33.333%;
+  flex-basis: 33.333%;
+  max-width: 33.333%;
+}
+
+.tbl-list-item .file-list-item-wrapper {
+  border: 1px solid #E2E2E2;
+  border-radius: 2px;
+  box-shadow: 0 1px 5px rgba(50,50,50,.1);
+  display: block;
+  position: relative;
+}
+
+.tbl-list-item .file-list-item-wrapper .file-list-item-top {
+  padding-bottom: 65%;
+  position: relative;
+}
+
+.file-list-representation {
+  background-color: #FCFCFC;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  bottom: 0;
+  display: block;
+  -webkit-flex: none;
+  flex: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.tbl-list-item .file-list-item-wrapper .file-list-item-bottom {
+  -webkit-align-items: center;
+  align-items: center;
+  display: -webkit-flex;
+  display: flex;
+  padding: 12px 15px;
+}
+
+.tbl-list-item .file-list-item-details {
+  -webkit-flex: 1;
+  flex: 1;
+  min-width: 1px;
+  margin-right: 10px;
 }

@@ -1,36 +1,7 @@
 
   <nav class="nav flex-column sidebar" style="border-right: 1px solid #dee5e8;">
-    <h3 class="pl-3 pt-2 sidebar-title">API Features</h3>
-      <a class="sidebar-link {{#if filesTab}}active{{/if}}" href="/files?init=true">Files</a>
-      <a class="sidebar-link {{#if collaborationsTab}}active{{/if}}" href="/collaborations?init=true">Collaborations</a>
-      <a class="sidebar-link {{#if searchTab}}active{{/if}}" href="/search?init=true">Search</a>
-      <a class="sidebar-link {{#if commentsTab}}active{{/if}}" href="/comments?init=true">Comments</a>
-      <a class="sidebar-link {{#if metadataTab}}active{{/if}}" href="/metadata?init=true">Metadata</a>
-      <a class="sidebar-link {{#if watermarkingTab}}active{{/if}}" href="/watermarking?init=true">Watermarking</a>
-      <a class="sidebar-link {{#if eventsTab}}active{{/if}}" href="/events?init=true">Events</a>
-      <a class="sidebar-link {{#if oauth2Tab}}active{{/if}}" href="/oauth2?init=true">Authentication</a>
-      <a class="sidebar-link {{#if representationsTab}}active{{/if}}" href="/representations?init=true">Representations</a>
-    <h3 class="pl-3 pt-5 sidebar-title">UI Elements</h3>
-      <a class="sidebar-link {{#if previewTab}}active{{/if}}" href="/content-preview">Content Preview</a>
-      <a class="sidebar-link {{#if pickerTab}}active{{/if}}" href="/content-picker">Content Pickers</a>
-      <a class="sidebar-link {{#if explorerTab}}active{{/if}}" href="/content-explorer">Content Explorer</a>
-      <a class="sidebar-link {{#if uploaderTab}}active{{/if}}" href="/content-uploader">Content Uploader</a>
+    <h3 class="pl-3 pt-2 sidebar-title">Company</h3>
+      <a class="sidebar-link" href="#">Box</a>
+      <a class="sidebar-link" href="#">Twilio</a>   
   </nav>
-  {{!-- Site Tour Help Btn --}}
-  {{#if filesTab}}
-    <div class="help-icon-container">
-      <button class="help-icon btn" onclick="tour.start();">
-        <span class="short-text"><i class="fa fa-question-circle"></i></span>
-        <span class="long-text">Help</span>
-      </button>
-    </div>
 
-    <script>
-      // Help Icon Hover
-      $(".help-icon").hover(function() {
-        $(".long-text").addClass("show-long-text");
-      }, function() {
-        $(".long-text").removeClass("show-long-text");
-      });
-    </script>
-  {{/if}}
