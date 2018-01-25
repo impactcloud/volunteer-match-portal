@@ -16,7 +16,7 @@ require('dotenv').config();
  mongoose.connect('mongodb://' +
 	process.env.DB_USER + ':' +
 	process.env.DB_PASSWORD +
-	'@ds047732.mlab.com:47732/api-navigator-user-entries', {
+	'@ds215388.mlab.com:15388/impactcorps', {
 		useMongoClient: true,
 });
 

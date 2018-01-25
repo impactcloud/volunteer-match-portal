@@ -112,7 +112,6 @@ router.get('/authentication', function(req, res) {
           }));
         } else {
           CreateNewUser(result.authedUser).then(function(newUser) {
-
             if (!newUser) {
               reject('Failed to Create New User');
             } else {
@@ -121,7 +120,7 @@ router.get('/authentication', function(req, res) {
               req.session.email = result.authedUser.email;
               req.session.userID = newUser.box_id;
 
-              res.redirect('/files?welcome=true');
+              res.redirect('/volunteer_signup?new_user=true');
               resolve();
             }
           });
@@ -243,7 +242,6 @@ function GoogleAuthentication(authCode){
  * @return newUser - object that contains auth id, app user id, and email domain
  */
 function CreateNewUser(authenticatedUser) {
-
   var adminAPIClient = boxSDK.getAppAuthClient('enterprise', process.env.ENTERPRISE_ID),
       newUser = new User({
         domain: authenticatedUser.domain,
@@ -259,9 +257,8 @@ function CreateNewUser(authenticatedUser) {
     adminAPIClient.enterprise.addAppUser(authenticatedUser.email, null, function(err, data) {
 
       if (err) { reject(err); return; }
-
+      
       newUser.box_id = data.id;
-
       groupParams = {
         body: {
           group: { id: process.env.USER_GROUP_ID, type: "group"},
