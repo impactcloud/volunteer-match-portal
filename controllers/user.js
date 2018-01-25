@@ -9,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 const auth = require('../middleware/auth');
 const boxSDK = require('../helpers/box-sdk').boxSDK;
-const errorReporting = require('../helpers/error-reporting');
+// const errorReporting = require('../helpers/error-reporting');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const boxOauthSDK = require('box-node-sdk');
@@ -129,7 +129,7 @@ router.get('/authentication', function(req, res) {
     })
     .catch((err) => {
       console.log('Authentication Error - ' + err);
-      errorReporting.send("user.js", "/authentication", err, req.session.email);
+      // errorReporting.send("user.js", "/authentication", err, req.session.email);
       res.redirect('/');
     });
   }
@@ -182,7 +182,7 @@ function BoxAuthentication(code) {
   })
   .catch((err) => {
     console.log('Box Authentication Error - ' + err);
-    errorReporting.send("user.js", "/authentication", err.message, req.session.email);
+    // errorReporting.send("user.js", "/authentication", err.message, req.session.email);
     return false;
   });
 }
@@ -230,7 +230,7 @@ function GoogleAuthentication(authCode){
   })
   .catch((err) => {
     console.log('Google Authentication Error - ' + err);
-    errorReporting.send("user.js", "/authentication", err.message, req.session.email);
+    // errorReporting.send("user.js", "/authentication", err.message, req.session.email);
     return false;
   });
 }

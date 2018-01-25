@@ -3,7 +3,7 @@
  */
 const express = require('express');
 const router = express.Router();
-const errorReporting = require('../helpers/error-reporting');
+//const errorReporting = require('../helpers/error-reporting');
 const REDIRECT_URI = process.env.BASE_URL + process.env.REDIRECT_URI;
 const BoxSDK = require('box-node-sdk');
     
@@ -75,7 +75,7 @@ router.get('/callback', function(req, res) {
 
     if (err) {
       console.log(err);
-      errorReporting.send("oauth2.js", "/callback", err.message, req.session.email);
+      //errorReporting.send("oauth2.js", "/callback", err.message, req.session.email);
     }
 
     // build API request/response strings

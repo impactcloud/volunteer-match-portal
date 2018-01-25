@@ -4,7 +4,7 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const errorReporting = require('../helpers/error-reporting');
+// const errorReporting = require('../helpers/error-reporting');
 const multipart = require('express-formidable').parse;
 const cache = require('memory-cache');
 
