@@ -108,4 +108,36 @@ describe('Endpoint', function () {
             done();
         });
     });
+
+    describe.only('BOX GET FOLDER ITEMS', function () {
+        it('should make correct request and return successfully for GET folder items', function (done) {
+
+            var folderID = '0',
+                options = {
+                    fields: 'name, modified_at, size, permissions',
+                    offset: 0,
+                    limit: 2
+                },
+                fixture = getFixture('folder-items/get_folder_items_200');
+
+            apiMock.post(`/2.0/folders/${folderID}/items`, options)
+                .matchHeader('Authorization', function (authHeader) {
+                    assert.equal(authHeader, `Bearer ${TEST_ACCESS_TOKEN}`);
+                    return true;
+                })
+                .matchHeader('User-Agent', function (uaHeader) {
+                    assert.include(uaHeader, 'Box Node.js SDK v');
+                    return true;
+                })
+                .reply(200, fixture);
+
+            basicClient.folders.getItems(folderID, options, function(){
+                assert.isNull(err);
+                assert.deepEqual(data, JSON.parse(fixture));
+
+                done();
+            });
+            done();
+        });
+    });
 });
