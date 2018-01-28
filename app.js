@@ -44,7 +44,7 @@ app.use(session({
 	httpOnly: true,
 	resave: false,
 	saveUninitialized: false
-}));
+}));  
 
 // ensure https
 app.use(require('./middleware/requireHTTPS'));
