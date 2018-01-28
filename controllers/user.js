@@ -112,7 +112,6 @@ router.get('/authentication', function(req, res) {
           }));
         } else {
           CreateNewUser(result.authedUser).then(function(newUser) {
-            console.log('NEW USER: ' + JSON.stringify(newUser));
             if (!newUser) {
               reject('Failed to Create New User');
             } else {
@@ -243,7 +242,6 @@ function GoogleAuthentication(authCode){
  * @return newUser - object that contains auth id, app user id, and email domain
  */
 function CreateNewUser(authenticatedUser) {
-  console.log('Authenticated User: ' + JSON.stringify(authenticatedUser));
   var adminAPIClient = boxSDK.getAppAuthClient('enterprise', process.env.ENTERPRISE_ID),
       newUser = new User({
         domain: authenticatedUser.domain,
@@ -257,24 +255,20 @@ function CreateNewUser(authenticatedUser) {
   return new Promise((resolve, reject) => {
     // create new app user and store in db
     adminAPIClient.enterprise.addAppUser(authenticatedUser.email, null, function(err, data) {
-      
       if (err) { reject(err); return; }
       
       newUser.box_id = data.id;
-      console.log('New User: ' + JSON.stringify(newUser));
       groupParams = {
         body: {
           group: { id: process.env.VOLUNTEER_GROUP_ID, type: "group"},
           user: { id: newUser.box_id}
         }
       };
-      console.log("BEFORE GROUP PARAMS: " + JSON.stringify(groupParams));
       resolve(groupParams);
   	});
   })
   .then((groupParams) => {
     return new Promise((resolve, reject) => {
-      console.log('Group Params: ' + JSON.stringify(groupParams));
       // add app user to group
       adminAPIClient.post('/group_memberships', groupParams, adminAPIClient.defaultResponseHandler(function(err, data) {
 
@@ -291,7 +285,6 @@ function CreateNewUser(authenticatedUser) {
     	sdk.folders.getItems(process.env.STARTER_DOCS_FOLDER, null, function(err, data) {
 
         if (err) { reject(err); }
-        console.log('Starter Folder: ' + JSON.stringify(data));
         if (data && data.entries) {
           data.entries.forEach( function(item, index) {
             sdk.files.copy(item.id, "0", function(err, file) {
