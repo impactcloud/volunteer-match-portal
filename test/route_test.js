@@ -21,12 +21,12 @@ describe('Volunteer Application Routes Tests', function() {
  
   after(function() {
     // This is a great place to clear out results from previously ran tests
-    // or if anything needs to be cleared per run 
+    // or if anything needs to reset per run 
     // For additional reading: https://mochajs.org/#hooks
   });
  
   // GET - Valid path for /home
-  it.only('should return successfully GET home route', function() {
+  it('should return successfully GET home route', function() {
     return chai.request(baseURL)
       .get('/home')
       .then(function(res) {
@@ -39,7 +39,7 @@ describe('Volunteer Application Routes Tests', function() {
   });
  
   // GET - Valid path for /volunteer-list
-  it.only('should return successfully GET volunter_list route', function() {
+  it('should return successfully GET volunter_list route', function() {
     return chai.request(baseURL)
       .get('/volunteer-list')
       .then(function(res) {
@@ -52,7 +52,7 @@ describe('Volunteer Application Routes Tests', function() {
   });
 
   // GET - Valid path for /volunteer-form
-  it.only('should return successfully GET volunter-form route', function() {
+  it('should return successfully GET volunter-form route', function() {
     return chai.request(baseURL)
       .get('/volunteer-form')
       .then(function(res) {
@@ -65,7 +65,7 @@ describe('Volunteer Application Routes Tests', function() {
   });
 
   // GET - Valid path for /volunteer-dashboard
-  it.only('should return successfully GET volunter-dashboard route', function() {
+  it('should return successfully GET volunter-dashboard route', function() {
     return chai.request(baseURL)
       .get('/volunteer-dashboard')
       .then(function(res) {
