@@ -6,14 +6,17 @@ const expect = require('chai').expect;
 chai.use(require('chai-http'));
  
 const app = require('../app.js'); // Our app
+var baseURL;
  
 describe('Volunteer Application Routes Tests', function() {  
   this.timeout(5000); // How long to wait for a response (ms)
  
-  before(function() {
+  beforeEach(function() {
     // Anything related to set up for tests go here. 
     // e.g. initialize SDK or client objects
     // For additional reading: https://mochajs.org/#hooks
+
+    baseURL = 'http://localhost:3000';
   });
  
   after(function() {
@@ -22,12 +25,12 @@ describe('Volunteer Application Routes Tests', function() {
     // For additional reading: https://mochajs.org/#hooks
   });
  
- 
-  // GET - Valid path for /volunteer_list
-  it.only('should return found for volunteer_list route', function() {
-    return chai.request('http://localhost:3000')
-      .get('/volunteer_list')
+  // GET - Valid path for /home
+  it.only('should return successfully GET home route', function() {
+    return chai.request(baseURL)
+      .get('/home')
       .then(function(res) {
+        expect('Content-Type', /json/)
         expect(res).to.have.status(200);
       })
       .catch(function(err) {
@@ -35,19 +38,42 @@ describe('Volunteer Application Routes Tests', function() {
       });
   });
  
-  // POST - Bad Request
-//   it('should return Bad Request', function() {
-//     return chai.request(app)
-//       .post('/colors')
-//       .type('form')
-//       .send({
-//         color: 'YELLOW'
-//       })
-//       .then(function(res) {
-//         throw new Error('Invalid content type!');
-//       })
-//       .catch(function(err) {
-//         expect(err).to.have.status(400);
-//       });
-//   });
+  // GET - Valid path for /volunteer-list
+  it.only('should return successfully GET volunter_list route', function() {
+    return chai.request(baseURL)
+      .get('/volunteer-list')
+      .then(function(res) {
+        expect('Content-Type', /json/)
+        expect(res).to.have.status(200);
+      })
+      .catch(function(err) {
+        expect(err).to.have.status(404);
+      });
+  });
+
+  // GET - Valid path for /volunteer-form
+  it.only('should return successfully GET volunter-form route', function() {
+    return chai.request(baseURL)
+      .get('/volunteer-form')
+      .then(function(res) {
+        expect('Content-Type', /json/)
+        expect(res).to.have.status(200);
+      })
+      .catch(function(err) {
+        expect(err).to.have.status(404);
+      });
+  });
+
+  // GET - Valid path for /volunteer-dashboard
+  it.only('should return successfully GET volunter-dashboard route', function() {
+    return chai.request(baseURL)
+      .get('/volunteer-dashboard')
+      .then(function(res) {
+        expect('Content-Type', /json/)
+        expect(res).to.have.status(200);
+      })
+      .catch(function(err) {
+        expect(err).to.have.status(404);
+      });
+  });
 });
