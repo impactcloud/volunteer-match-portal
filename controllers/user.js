@@ -255,17 +255,15 @@ function CreateNewUser(authenticatedUser) {
   return new Promise((resolve, reject) => {
     // create new app user and store in db
     adminAPIClient.enterprise.addAppUser(authenticatedUser.email, null, function(err, data) {
-
       if (err) { reject(err); return; }
       
       newUser.box_id = data.id;
       groupParams = {
         body: {
-          group: { id: process.env.USER_GROUP_ID, type: "group"},
+          group: { id: process.env.VOLUNTEER_GROUP_ID, type: "group"},
           user: { id: newUser.box_id}
         }
       };
-
       resolve(groupParams);
   	});
   })
@@ -287,7 +285,6 @@ function CreateNewUser(authenticatedUser) {
     	sdk.folders.getItems(process.env.STARTER_DOCS_FOLDER, null, function(err, data) {
 
         if (err) { reject(err); }
-
         if (data && data.entries) {
           data.entries.forEach( function(item, index) {
             sdk.files.copy(item.id, "0", function(err, file) {
